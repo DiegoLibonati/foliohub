@@ -1,12 +1,15 @@
+import axios from "axios";
+
 import { Repo } from "../entities/vite-env";
 
 export const getGithubProfileRepos = async (
-  reposLink: string
-): Promise<Repo[] | boolean> => {
-  const request = await fetch(`${reposLink}`);
+  username: string
+): Promise<Repo[] | null> => {
+  const request = await axios.get(`/users/${username}/repos`);
 
-  if (!request.ok) return false;
+  if (request.status !== 200) return null;
 
-  const response: Repo[] = await request.json();
+  const response: Repo[] = await request.data;
+
   return response;
 };

@@ -33,6 +33,7 @@ export type Profile = {
   following: number;
   created_at: string;
   updated_at: string;
+  user_view_type: string;
 };
 
 export type Repo = {
@@ -60,6 +61,7 @@ export type Repo = {
     received_events_url: string;
     type: string;
     site_admin: boolean;
+    user_view_type: string;
   };
   html_url: string;
   description: string;
@@ -140,4 +142,8 @@ export type Repo = {
   open_issues: number;
   watchers: number;
   default_branch: string;
+};
+
+export type Config = {
+  API_URL: string;
 };
