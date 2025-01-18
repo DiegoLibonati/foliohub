@@ -43,7 +43,7 @@ const createLinkRepo = (href: string, name: string): HTMLLIElement => {
 
   li.setAttribute(
     "class",
-    "text-white bg-[#1D2B53] rounded-lg cursor-pointer py-[.2rem] px-[.3rem] mr-[.3rem] mt-[.3rem]"
+    "text-white bg-primary rounded-lg cursor-pointer py-[.2rem] px-[.3rem] mr-[.3rem] mt-[.3rem]"
   );
 
   li.append(a);
