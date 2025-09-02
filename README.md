@@ -22,7 +22,7 @@ I made a web page that allows the user to search for github profiles. If you fin
 #### Dependencies
 
 ```
-"@types/jest": "^29.5.14"
+"axios": "^1.7.9"
 ```
 
 #### devDependencies
@@ -31,16 +31,17 @@ I made a web page that allows the user to search for github profiles. If you fin
 "@testing-library/dom": "^10.4.0"
 "@testing-library/jest-dom": "^6.6.3"
 "@testing-library/user-event": "^14.5.2"
+"@types/jest": "^29.5.14"
+"autoprefixer": "^10.4.16"
 "jest": "^29.7.0"
 "jest-environment-jsdom": "^29.7.0"
-"ts-jest": "^29.2.5"
 "jest-fixed-jsdom": "^0.0.9"
-"typescript": "^5.2.2"
-"vite": "^5.0.8"
-"autoprefixer": "^10.4.16"
+"msw": "^2.6.5"
 "postcss": "^8.4.33"
 "tailwindcss": "^3.4.1"
-"msw": "^2.6.5"
+"ts-jest": "^29.2.5"
+"typescript": "^5.2.2"
+"vite": "^5.0.8"
 ```
 
 ## Portfolio Link

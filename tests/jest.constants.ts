@@ -1,10 +1,10 @@
 import fs from "fs";
 import path from "path";
 
-import { Profile, Repo } from "../entities/vite-env";
+import { Profile, Repo } from "../src/entities/vite-env";
 
 const INITIAL_HTML: string = fs.readFileSync(
-  path.resolve(__dirname, "../../index.html"),
+  path.resolve(__dirname, "../index.html"),
   "utf8"
 );
 
