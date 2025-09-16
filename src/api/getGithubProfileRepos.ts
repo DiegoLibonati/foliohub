@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { Repo } from "../entities/vite-env";
+import { Repo } from "@src/entities/vite-env";
 
 export const getGithubProfileRepos = async (
   username: string

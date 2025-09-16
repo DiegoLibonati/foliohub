@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { Profile } from "../entities/vite-env";
+import { Profile } from "@src/entities/vite-env";
 
 export const getGithubProfile = async (
   profile: string

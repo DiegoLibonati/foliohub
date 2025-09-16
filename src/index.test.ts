@@ -1,12 +1,12 @@
 import { screen } from "@testing-library/dom";
 import user from "@testing-library/user-event";
 
-import { createServer } from "../tests/msw/server";
+import { createServer } from "@tests/msw/server";
 import {
   mockProfileReposRequest,
   mockProfileRequest,
   OFFICIAL_BODY,
-} from "../tests/jest.constants";
+} from "@tests/jest.constants";
 
 describe("index.ts", () => {
   describe("General Tests.", () => {

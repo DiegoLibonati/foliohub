@@ -1,9 +1,9 @@
-import { Profile, Repo } from "./entities/vite-env";
+import { Profile, Repo } from "@src/entities/vite-env";
 
-import { getGithubProfile } from "./api/getGithubProfile";
-import { getGithubProfileRepos } from "./api/getGithubProfileRepos";
+import { getGithubProfile } from "@src/api/getGithubProfile";
+import { getGithubProfileRepos } from "@src/api/getGithubProfileRepos";
 
-import { getElements } from "./helpers/getElements";
+import { getElements } from "@src/helpers/getElements";
 
 let timeoutAlert: NodeJS.Timeout | null;
 
