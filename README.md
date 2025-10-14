@@ -21,8 +21,9 @@ I made a web page that allows the user to search for github profiles. If you fin
 
 1. Typescript
 2. TailwindCSS
-3. HTML5
-4. Vite
+3. CSS3
+4. HTML5
+5. Vite
 
 ## Libraries used
 

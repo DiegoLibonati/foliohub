@@ -1,5 +1,3 @@
-/// <reference types="vite/client" />
-
 export type Profile = {
   login: string;
   id: number;
@@ -144,6 +142,4 @@ export type Repo = {
   default_branch: string;
 };
 
-export type Config = {
-  API_URL: string;
-};
+export type RepoFlat = Pick<Repo, "name" | "html_url">;
