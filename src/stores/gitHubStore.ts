@@ -3,7 +3,7 @@ import { GitHubState } from "@src/entities/states";
 
 import { getGithubProfileRepos } from "@src/api/get/getGithubProfileRepos";
 
-import { Store } from "@src/stores/store";
+import { Store } from "@src/core/store";
 
 export class GitHubStore extends Store<GitHubState> {
   constructor(initialState: GitHubState) {
