@@ -79,7 +79,7 @@ describe("CardInit", () => {
     test("It should contain an h1 element", () => {
       const { container } = renderComponent();
 
-      const h1 = container.querySelector("h1");
+      const h1 = container.querySelector<HTMLHeadingElement>("h1");
 
       expect(h1).not.toBeNull();
       expect(h1?.tagName).toBe("H1");

@@ -20,7 +20,7 @@ describe("setAlert.ts", () => {
   describe("Alert display", () => {
     test("It should display alert message", () => {
       const message = "Test alert message";
-      const alertText = document.querySelector(".alert__text");
+      const alertText = document.querySelector<HTMLHeadingElement>(".alert__text");
 
       setAlert(message);
 
@@ -37,7 +37,7 @@ describe("setAlert.ts", () => {
     });
 
     test("It should display different messages", () => {
-      const alertText = document.querySelector(".alert__text");
+      const alertText = document.querySelector<HTMLHeadingElement>(".alert__text");
 
       setAlert("First message");
       expect(alertText?.innerHTML).toBe("First message");
@@ -48,7 +48,7 @@ describe("setAlert.ts", () => {
 
     test("It should display message with HTML entities", () => {
       const message = "User not found ❌";
-      const alertText = document.querySelector(".alert__text");
+      const alertText = document.querySelector<HTMLHeadingElement>(".alert__text");
 
       setAlert(message);
 
@@ -56,7 +56,7 @@ describe("setAlert.ts", () => {
     });
 
     test("It should display empty message", () => {
-      const alertText = document.querySelector(".alert__text");
+      const alertText = document.querySelector<HTMLHeadingElement>(".alert__text");
 
       setAlert("");
 
@@ -105,7 +105,7 @@ describe("setAlert.ts", () => {
   describe("Multiple alerts", () => {
     test("It should handle consecutive alerts", () => {
       const alertRoot = document.querySelector<HTMLDivElement>(".alert");
-      const alertText = document.querySelector(".alert__text");
+      const alertText = document.querySelector<HTMLHeadingElement>(".alert__text");
 
       setAlert("First alert");
       expect(alertText?.innerHTML).toBe("First alert");
@@ -138,7 +138,7 @@ describe("setAlert.ts", () => {
 
     test("It should handle rapid consecutive calls", () => {
       const alertRoot = document.querySelector<HTMLDivElement>(".alert");
-      const alertText = document.querySelector(".alert__text");
+      const alertText = document.querySelector<HTMLHeadingElement>(".alert__text");
 
       setAlert("Alert 1");
       setAlert("Alert 2");
@@ -160,7 +160,7 @@ describe("setAlert.ts", () => {
     });
 
     test("It should update innerHTML property", () => {
-      const alertText = document.querySelector(".alert__text");
+      const alertText = document.querySelector<HTMLHeadingElement>(".alert__text");
       const initialHTML = alertText?.innerHTML;
 
       setAlert("New message");
@@ -180,7 +180,7 @@ describe("setAlert.ts", () => {
 
   describe("Edge cases", () => {
     test("It should handle special characters with innerHTML escaping", () => {
-      const alertText = document.querySelector(".alert__text");
+      const alertText = document.querySelector<HTMLHeadingElement>(".alert__text");
       const message = "Special: <>&\"'";
 
       setAlert(message);
@@ -189,7 +189,7 @@ describe("setAlert.ts", () => {
     });
 
     test("It should handle long messages", () => {
-      const alertText = document.querySelector(".alert__text");
+      const alertText = document.querySelector<HTMLHeadingElement>(".alert__text");
       const longMessage = "A".repeat(1000);
 
       setAlert(longMessage);
@@ -198,7 +198,7 @@ describe("setAlert.ts", () => {
     });
 
     test("It should handle messages with line breaks", () => {
-      const alertText = document.querySelector(".alert__text");
+      const alertText = document.querySelector<HTMLHeadingElement>(".alert__text");
       const message = "Line 1\nLine 2";
 
       setAlert(message);
@@ -207,7 +207,7 @@ describe("setAlert.ts", () => {
     });
 
     test("It should handle unicode characters", () => {
-      const alertText = document.querySelector(".alert__text");
+      const alertText = document.querySelector<HTMLHeadingElement>(".alert__text");
       const message = "✅ Success! 🎉";
 
       setAlert(message);

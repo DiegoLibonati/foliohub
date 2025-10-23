@@ -130,7 +130,9 @@ describe("SubTitle.ts", () => {
       );
 
       expect(container.innerHTML).toBe(htmlContent);
-      expect(container.querySelector(".font-semibold")).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLHeadingElement>(".font-semibold")
+      ).toBeInTheDocument();
     });
 
     test("It should render mixed content correctly", () => {
@@ -142,7 +144,9 @@ describe("SubTitle.ts", () => {
       );
 
       expect(container.innerHTML).toBe(mixedContent);
-      expect(container.querySelector("span")).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLHeadingElement>("span")
+      ).toBeInTheDocument();
       expect(container.textContent).toContain("100");
       expect(container.textContent).toContain("Followers");
     });
@@ -226,7 +230,7 @@ describe("SubTitle.ts", () => {
       const id = "findable-subtitle";
       renderComponent(id, undefined, "Content");
 
-      const element = document.getElementById(id);
+      const element = document.querySelector<HTMLHeadingElement>(`#${id}`);
 
       expect(element).toBeInTheDocument();
       expect(element?.tagName).toBe("H3");
@@ -291,16 +295,24 @@ describe("SubTitle.ts", () => {
       );
 
       expect(container.innerHTML).toBe(contentWithBreaks);
-      expect(container.querySelector("br")).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLHeadingElement>("br")
+      ).toBeInTheDocument();
     });
 
     test("It should handle nested HTML elements", () => {
       const nestedContent = "<div><span><strong>Nested</strong></span></div>";
       const { container } = renderComponent("nested", undefined, nestedContent);
 
-      expect(container.querySelector("div")).toBeInTheDocument();
-      expect(container.querySelector("span")).toBeInTheDocument();
-      expect(container.querySelector("strong")).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLHeadingElement>("div")
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLHeadingElement>("span")
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLHeadingElement>("strong")
+      ).toBeInTheDocument();
     });
 
     test("It should handle content with emojis", () => {
@@ -365,7 +377,9 @@ describe("SubTitle.ts", () => {
       expect(container.id).toBe("followers-profile");
       expect(container.textContent).toContain("100");
       expect(container.textContent).toContain("Followers");
-      expect(container.querySelector("span")).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLHeadingElement>("span")
+      ).toBeInTheDocument();
     });
 
     test("It should work for following display", () => {

@@ -99,7 +99,8 @@ describe("GitHubPage.ts", () => {
     test("It should contain form-search element", () => {
       const { container } = renderComponent();
 
-      const formSearch = container.querySelector(".form-search");
+      const formSearch =
+        container.querySelector<HTMLFormElement>(".form-search");
 
       expect(formSearch).toBeInTheDocument();
       expect(formSearch?.tagName).toBe("FORM");
@@ -108,7 +109,7 @@ describe("GitHubPage.ts", () => {
     test("It should contain card section", () => {
       const { container } = renderComponent();
 
-      const card = container.querySelector(".card");
+      const card = container.querySelector<HTMLElement>(".card");
 
       expect(card).toBeInTheDocument();
       expect(card?.tagName).toBe("SECTION");
@@ -119,7 +120,7 @@ describe("GitHubPage.ts", () => {
     test("It should render search form with correct structure", () => {
       const { container } = renderComponent();
 
-      const form = container.querySelector(".form-search");
+      const form = container.querySelector<HTMLFormElement>(".form-search");
 
       expect(form).toBeInTheDocument();
       expect(form?.tagName).toBe("FORM");
@@ -128,7 +129,7 @@ describe("GitHubPage.ts", () => {
     test("It should have correct form styling classes", () => {
       const { container } = renderComponent();
 
-      const form = container.querySelector(".form-search");
+      const form = container.querySelector<HTMLFormElement>(".form-search");
 
       expect(form?.className).toContain("mb-2");
       expect(form?.className).toContain("p-2");
@@ -177,7 +178,7 @@ describe("GitHubPage.ts", () => {
     test("It should render search icon in button", () => {
       const { container } = renderComponent();
 
-      const icon = container.querySelector(".fa-magnifying-glass");
+      const icon = container.querySelector<HTMLElement>(".fa-magnifying-glass");
 
       expect(icon).toBeInTheDocument();
       expect(icon?.classList.contains("fa-solid")).toBe(true);
@@ -199,7 +200,7 @@ describe("GitHubPage.ts", () => {
     test("It should have card-init class on initial render", () => {
       const { container } = renderComponent();
 
-      const cardInit = container.querySelector(".card-init");
+      const cardInit = container.querySelector<HTMLDivElement>(".card-init");
 
       expect(cardInit).toBeInTheDocument();
     });
@@ -207,7 +208,8 @@ describe("GitHubPage.ts", () => {
     test("It should not render CardProfile on mount", () => {
       const { container } = renderComponent();
 
-      const cardProfile = container.querySelector(".card-profile");
+      const cardProfile =
+        container.querySelector<HTMLDivElement>(".card-profile");
 
       expect(cardProfile).not.toBeInTheDocument();
     });
@@ -218,7 +220,8 @@ describe("GitHubPage.ts", () => {
       renderComponent();
 
       const button = screen.getByRole("button", { name: /search profile/i });
-      const alertText = document.querySelector(".alert__text");
+      const alertText =
+        document.querySelector<HTMLHeadingElement>(".alert__text");
 
       await user.click(button);
 
@@ -230,7 +233,8 @@ describe("GitHubPage.ts", () => {
 
       const input = screen.getByPlaceholderText("Username");
       const button = screen.getByRole("button", { name: /search profile/i });
-      const alertText = document.querySelector(".alert__text");
+      const alertText =
+        document.querySelector<HTMLHeadingElement>(".alert__text");
 
       await user.type(input, "   ");
       await user.click(button);
@@ -261,7 +265,8 @@ describe("GitHubPage.ts", () => {
 
       const input = screen.getByPlaceholderText("Username");
       const button = screen.getByRole("button", { name: /search profile/i });
-      const alertText = document.querySelector(".alert__text");
+      const alertText =
+        document.querySelector<HTMLHeadingElement>(".alert__text");
 
       await user.type(input, "testuser");
       await user.click(button);
@@ -276,7 +281,8 @@ describe("GitHubPage.ts", () => {
 
       const input = screen.getByPlaceholderText("Username");
       const button = screen.getByRole("button", { name: /search profile/i });
-      const alertText = document.querySelector(".alert__text");
+      const alertText =
+        document.querySelector<HTMLHeadingElement>(".alert__text");
 
       await user.type(input, "nonexistentuser");
       await user.click(button);
@@ -338,7 +344,9 @@ describe("GitHubPage.ts", () => {
       await user.click(button);
 
       await waitFor(() => {
-        const bio = container.querySelector("#description-profile");
+        const bio = container.querySelector<HTMLParagraphElement>(
+          "#description-profile"
+        );
         expect(bio?.textContent).toBe(mockProfile.bio);
       });
     });
@@ -353,9 +361,12 @@ describe("GitHubPage.ts", () => {
       await user.click(button);
 
       await waitFor(() => {
-        const followers = container.querySelector("#followers-profile");
-        const following = container.querySelector("#following-profile");
-        const repos = container.querySelector("#repos-profile");
+        const followers =
+          container.querySelector<HTMLHeadingElement>("#followers-profile");
+        const following =
+          container.querySelector<HTMLHeadingElement>("#following-profile");
+        const repos =
+          container.querySelector<HTMLHeadingElement>("#repos-profile");
 
         expect(followers?.textContent).toContain(
           mockProfile.followers.toString()
@@ -379,7 +390,8 @@ describe("GitHubPage.ts", () => {
       await user.click(button);
 
       await waitFor(() => {
-        const reposList = container.querySelector(".card__repos-list");
+        const reposList =
+          container.querySelector<HTMLUListElement>(".card__repos-list");
         expect(reposList?.children.length).toBe(mockRepos.length);
       });
     });
@@ -394,7 +406,8 @@ describe("GitHubPage.ts", () => {
       await user.click(button);
 
       await waitFor(() => {
-        const cardProfile = container.querySelector(".card-profile");
+        const cardProfile =
+          container.querySelector<HTMLDivElement>(".card-profile");
         expect(cardProfile).toBeInTheDocument();
       });
     });
@@ -409,7 +422,7 @@ describe("GitHubPage.ts", () => {
       await user.click(button);
 
       await waitFor(() => {
-        const cardInit = container.querySelector(".card-init");
+        const cardInit = container.querySelector<HTMLDivElement>(".card-init");
         expect(cardInit).not.toBeInTheDocument();
       });
     });
@@ -466,7 +479,8 @@ describe("GitHubPage.ts", () => {
       await user.click(button);
 
       await waitFor(() => {
-        const alertText = document.querySelector(".alert__text");
+        const alertText =
+          document.querySelector<HTMLHeadingElement>(".alert__text");
         expect(alertText?.textContent).toBe("The profile dosen´t exist 😔");
       });
     });
@@ -572,7 +586,8 @@ describe("GitHubPage.ts", () => {
 
       const input = screen.getByPlaceholderText("Username");
       const button = screen.getByRole("button", { name: /search profile/i });
-      const alertText = document.querySelector(".alert__text");
+      const alertText =
+        document.querySelector<HTMLHeadingElement>(".alert__text");
 
       await user.type(input, "user@#$%");
       await user.click(button);
@@ -587,7 +602,7 @@ describe("GitHubPage.ts", () => {
     test("It should have correct card section styling", () => {
       const { container } = renderComponent();
 
-      const card = container.querySelector(".card");
+      const card = container.querySelector<HTMLElement>(".card");
 
       expect(card?.className).toContain("flex");
       expect(card?.className).toContain("flex-col");
@@ -600,7 +615,8 @@ describe("GitHubPage.ts", () => {
     test("It should replace card content when switching from CardInit to CardProfile", async () => {
       const { container } = renderComponent();
 
-      const cardInitBefore = container.querySelector(".card-init");
+      const cardInitBefore =
+        container.querySelector<HTMLDivElement>(".card-init");
       expect(cardInitBefore).toBeInTheDocument();
 
       const input = screen.getByPlaceholderText("Username");
@@ -610,8 +626,10 @@ describe("GitHubPage.ts", () => {
       await user.click(button);
 
       await waitFor(() => {
-        const cardInitAfter = container.querySelector(".card-init");
-        const cardProfile = container.querySelector(".card-profile");
+        const cardInitAfter =
+          container.querySelector<HTMLDivElement>(".card-init");
+        const cardProfile =
+          container.querySelector<HTMLDivElement>(".card-profile");
 
         expect(cardInitAfter).not.toBeInTheDocument();
         expect(cardProfile).toBeInTheDocument();
@@ -628,7 +646,8 @@ describe("GitHubPage.ts", () => {
       await user.click(button);
 
       await waitFor(() => {
-        const cardProfile = container.querySelector(".card-profile");
+        const cardProfile =
+          container.querySelector<HTMLDivElement>(".card-profile");
         expect(cardProfile).toBeInTheDocument();
       });
 
@@ -637,8 +656,9 @@ describe("GitHubPage.ts", () => {
       await user.click(button);
 
       await waitFor(() => {
-        const cardInit = container.querySelector(".card-init");
-        const cardProfile = container.querySelector(".card-profile");
+        const cardInit = container.querySelector<HTMLDivElement>(".card-init");
+        const cardProfile =
+          container.querySelector<HTMLDivElement>(".card-profile");
 
         expect(cardInit).toBeInTheDocument();
         expect(cardProfile).not.toBeInTheDocument();

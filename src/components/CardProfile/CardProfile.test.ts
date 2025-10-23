@@ -129,7 +129,8 @@ describe("CardProfile.ts", () => {
         mockProps.repos
       );
 
-      const cardContent = container.querySelector(".card__content");
+      const cardContent =
+        container.querySelector<HTMLDivElement>(".card__content");
 
       expect(cardContent).toBeInTheDocument();
     });
@@ -225,7 +226,9 @@ describe("CardProfile.ts", () => {
         mockProps.repos
       );
 
-      const bioElement = container.querySelector("#description-profile");
+      const bioElement = container.querySelector<HTMLParagraphElement>(
+        "#description-profile"
+      );
 
       expect(bioElement).toBeInTheDocument();
       expect(bioElement?.textContent).toBe(mockProps.bio);
@@ -272,7 +275,8 @@ describe("CardProfile.ts", () => {
         mockProps.repos
       );
 
-      const followersElement = container.querySelector("#followers-profile");
+      const followersElement =
+        container.querySelector<HTMLHeadingElement>("#followers-profile");
 
       expect(followersElement).toBeInTheDocument();
       expect(followersElement?.textContent).toContain(
@@ -292,7 +296,8 @@ describe("CardProfile.ts", () => {
         mockProps.repos
       );
 
-      const followingElement = container.querySelector("#following-profile");
+      const followingElement =
+        container.querySelector<HTMLHeadingElement>("#following-profile");
 
       expect(followingElement).toBeInTheDocument();
       expect(followingElement?.textContent).toContain(
@@ -312,7 +317,8 @@ describe("CardProfile.ts", () => {
         mockProps.repos
       );
 
-      const reposElement = container.querySelector("#repos-profile");
+      const reposElement =
+        container.querySelector<HTMLHeadingElement>("#repos-profile");
 
       expect(reposElement).toBeInTheDocument();
       expect(reposElement?.textContent).toContain(
@@ -332,7 +338,9 @@ describe("CardProfile.ts", () => {
         mockProps.repos
       );
 
-      const statsContainer = container.querySelector(".card__content-stats");
+      const statsContainer = container.querySelector<HTMLDivElement>(
+        ".card__content-stats"
+      );
 
       expect(statsContainer).toBeInTheDocument();
     });
@@ -382,7 +390,8 @@ describe("CardProfile.ts", () => {
         mockRepos
       );
 
-      const reposList = container.querySelector(".card__repos-list");
+      const reposList =
+        container.querySelector<HTMLUListElement>(".card__repos-list");
       const repoItems = reposList?.children;
 
       expect(repoItems?.length).toBe(mockRepos.length);
@@ -399,7 +408,8 @@ describe("CardProfile.ts", () => {
         mockRepos
       );
 
-      const reposList = container.querySelector(".card__repos-list");
+      const reposList =
+        container.querySelector<HTMLUListElement>(".card__repos-list");
 
       expect(reposList).toBeInTheDocument();
       expect(reposList?.tagName).toBe("UL");
@@ -416,7 +426,8 @@ describe("CardProfile.ts", () => {
         []
       );
 
-      const reposList = container.querySelector(".card__repos-list");
+      const reposList =
+        container.querySelector<HTMLUListElement>(".card__repos-list");
 
       expect(reposList?.children.length).toBe(0);
     });
@@ -432,7 +443,8 @@ describe("CardProfile.ts", () => {
         mockRepos
       );
 
-      const reposContainer = container.querySelector(".card__repos");
+      const reposContainer =
+        container.querySelector<HTMLDivElement>(".card__repos");
 
       expect(reposContainer).toBeInTheDocument();
     });
@@ -450,9 +462,12 @@ describe("CardProfile.ts", () => {
         []
       );
 
-      const followersElement = container.querySelector("#followers-profile");
-      const followingElement = container.querySelector("#following-profile");
-      const reposElement = container.querySelector("#repos-profile");
+      const followersElement =
+        container.querySelector<HTMLHeadingElement>("#followers-profile");
+      const followingElement =
+        container.querySelector<HTMLHeadingElement>("#following-profile");
+      const reposElement =
+        container.querySelector<HTMLHeadingElement>("#repos-profile");
 
       expect(followersElement?.textContent).toContain("0");
       expect(followingElement?.textContent).toContain("0");
@@ -470,9 +485,12 @@ describe("CardProfile.ts", () => {
         []
       );
 
-      const followersElement = container.querySelector("#followers-profile");
-      const followingElement = container.querySelector("#following-profile");
-      const reposElement = container.querySelector("#repos-profile");
+      const followersElement =
+        container.querySelector<HTMLHeadingElement>("#followers-profile");
+      const followingElement =
+        container.querySelector<HTMLHeadingElement>("#following-profile");
+      const reposElement =
+        container.querySelector<HTMLHeadingElement>("#repos-profile");
 
       expect(followersElement?.textContent).toContain("999999");
       expect(followingElement?.textContent).toContain("888888");
@@ -490,7 +508,9 @@ describe("CardProfile.ts", () => {
         []
       );
 
-      const bioElement = container.querySelector("#description-profile");
+      const bioElement = container.querySelector<HTMLParagraphElement>(
+        "#description-profile"
+      );
 
       expect(bioElement).toBeInTheDocument();
       expect(bioElement?.textContent).toBe("");

@@ -116,7 +116,7 @@ describe("ItemLinkRepo.ts", () => {
     test("It should contain an anchor element", () => {
       const { container } = renderComponent(mockProps.name, mockProps.href);
 
-      const anchor = container.querySelector("a");
+      const anchor = container.querySelector<HTMLAnchorElement>("a");
 
       expect(anchor).not.toBeNull();
       expect(anchor?.tagName).toBe("A");
@@ -215,7 +215,7 @@ describe("ItemLinkRepo.ts", () => {
     test("It should handle empty repository name", () => {
       const { container } = renderComponent("", "https://github.com/user/repo");
 
-      const link = container.querySelector("a");
+      const link = container.querySelector<HTMLAnchorElement>("a");
 
       expect(link).toBeInTheDocument();
       expect(link?.textContent?.trim()).toBe("");
