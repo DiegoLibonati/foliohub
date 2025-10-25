@@ -1,12 +1,14 @@
-import { Profile } from "@src/entities/app";
+import { GetGithubProfileResponse } from "@src/entities/responses";
 
 import { apiUsers } from "@src/api/users";
 
-export const getGithubProfile = async (profile: string): Promise<Profile> => {
+export const getGithubProfile = async (
+  profile: string
+): Promise<GetGithubProfileResponse> => {
   try {
     const request = await apiUsers.get(`/${profile}`);
 
-    const response: Profile = await request.data;
+    const response: GetGithubProfileResponse = await request.data;
 
     return response;
   } catch (error) {
