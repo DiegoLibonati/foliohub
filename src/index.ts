@@ -1,7 +1,11 @@
-import { GitHubPage } from "@src/pages/GitHubPage/GitHubPage";
+import "@/index.css";
+import { GitHubPage } from "@/pages/GitHubPage/GitHubPage";
 
-const onInit = () => {
-  const app = document.querySelector<HTMLDivElement>("#app")!;
+const onInit = (): void => {
+  const app = document.querySelector<HTMLDivElement>("#app");
+
+  if (!app) throw new Error(`You must render a container to mount the app.`);
+
   const gitHubPage = GitHubPage();
   app.appendChild(gitHubPage);
 };

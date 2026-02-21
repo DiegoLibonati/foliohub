@@ -1,19 +1,19 @@
-import { Profile, Repo } from "@src/entities/app";
-import { GitHubState } from "@src/entities/states";
+import type { Profile, Repo } from "@/types/app";
+import type { GitHubState } from "@/types/states";
 
-import { getGithubProfileRepos } from "@src/api/get/getGithubProfileRepos";
+import { githubService } from "@/services/githubService";
 
-import { Store } from "@src/core/store";
+import { Store } from "@/core/store";
 
 export class GitHubStore extends Store<GitHubState> {
-  constructor(initialState: GitHubState) {
-    super(initialState);
-  }
+  // constructor(initialState: GitHubState) {
+  //   super(initialState);
+  // }
 
   public async setProfile(profile: Profile | null): Promise<void> {
     let repos: Repo[] = [];
 
-    if (profile) repos = await getGithubProfileRepos(profile.login);
+    if (profile) repos = await githubService.getRepos(profile.login);
 
     this.setState({ profile: profile, repos: repos });
   }

@@ -1,4 +1,4 @@
-import { Listener } from "@src/entities/store";
+import type { Listener } from "@/types/store";
 
 export abstract class Store<T extends Record<string, unknown>> {
   protected state: T;
@@ -7,10 +7,13 @@ export abstract class Store<T extends Record<string, unknown>> {
   constructor(initialState: T) {
     this.state = initialState;
 
-    this.listeners = Object.keys(initialState).reduce((acc, key) => {
-      acc[key as keyof T] = [];
-      return acc;
-    }, {} as { [K in keyof T]: Listener<T[K]>[] });
+    this.listeners = Object.keys(initialState).reduce(
+      (acc, key) => {
+        acc[key as keyof T] = [];
+        return acc;
+      },
+      {} as { [K in keyof T]: Listener<T[K]>[] }
+    );
   }
 
   public getState(): Readonly<T> {
@@ -25,15 +28,15 @@ export abstract class Store<T extends Record<string, unknown>> {
     const prevState = this.state;
     this.state = { ...this.state, ...newState };
 
-    (Object.keys(newState) as (keyof T)[]).forEach(
-      <K extends keyof T>(key: K) => {
-        const oldValue = prevState[key];
-        const newValue = this.state[key];
-        if (oldValue !== newValue) {
-          this.listeners[key].forEach((listener) => listener(newValue));
-        }
+    (Object.keys(newState) as (keyof T)[]).forEach((key) => {
+      const oldValue = prevState[key];
+      const newValue = this.state[key];
+      if (oldValue !== newValue) {
+        this.listeners[key].forEach((listener) => {
+          listener(newValue);
+        });
       }
-    );
+    });
   }
 
   public subscribe<K extends keyof T>(
@@ -42,7 +45,7 @@ export abstract class Store<T extends Record<string, unknown>> {
   ): () => void {
     this.listeners[key].push(listener);
 
-    return () => {
+    return (): void => {
       const arr = this.listeners[key];
       const index = arr.indexOf(listener);
       if (index !== -1) arr.splice(index, 1);

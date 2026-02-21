@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 16px;
+  }
+
+  body {
+    @apply min-h-screen w-full font-primary leading-relaxed antialiased;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    @apply block max-w-full;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  ul,
+  ol {
+    @apply list-none;
+  }
+
+  a {
+    @apply no-underline text-inherit;
+  }
+}

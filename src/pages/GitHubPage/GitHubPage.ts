@@ -1,33 +1,41 @@
-import { CardInit } from "@src/components/CardInit/CardInit";
-import { CardProfile } from "@src/components/CardProfile/CardProfile";
+import type { Page } from "@/types/pages";
 
-import { getGithubProfile } from "@src/api/get/getGithubProfile";
+import { CardInit } from "@/components/CardInit/CardInit";
+import { CardProfile } from "@/components/CardProfile/CardProfile";
 
-import { gitHubStore } from "@src/stores/gitHubStore";
+import { githubService } from "@/services/githubService";
 
-import { setAlert } from "@src/helpers/setAlert";
+import { gitHubStore } from "@/stores/gitHubStore";
 
-const handleSearchUser = async (e: SubmitEvent, input: HTMLInputElement) => {
+import { setAlert, clearAlert } from "@/helpers/setAlert";
+
+const handleSearchUser = async (
+  e: SubmitEvent,
+  input: HTMLInputElement
+): Promise<void> => {
   e.preventDefault();
 
   const value = input.value.trim();
 
-  if (!value) return setAlert(`You must enter valid content.`);
+  if (!value) {
+    setAlert("You must enter valid content.");
+    return;
+  }
 
   try {
-    const githubProfile = await getGithubProfile(value);
+    const githubProfile = await githubService.getProfile(value);
 
     await gitHubStore.setProfile(githubProfile);
 
-    setAlert("The profile exist ✅");
+    setAlert("The profile exists ✅");
   } catch {
     await gitHubStore.setProfile(null);
-    setAlert(`The profile dosen´t exist 😔`);
+    setAlert("The profile doesn't exist 😔");
   }
 };
 
-export const GitHubPage = (): HTMLElement => {
-  const main = document.createElement("main");
+export const GitHubPage = (): Page => {
+  const main = document.createElement("main") as Page;
   main.className =
     "flex flex-col items-center justify-center w-full min-h-screen main_container my-2 md:my-0";
 
@@ -52,12 +60,17 @@ export const GitHubPage = (): HTMLElement => {
   `;
 
   const formSearch = main.querySelector<HTMLFormElement>(".form-search");
-  const input =
-    formSearch!.querySelector<HTMLInputElement>(".form-search input");
+  const input = formSearch?.querySelector<HTMLInputElement>("input");
 
-  formSearch?.addEventListener("submit", (e) => handleSearchUser(e, input!));
+  const handleFormSubmit = (e: SubmitEvent): void => {
+    if (input) {
+      void handleSearchUser(e, input);
+    }
+  };
 
-  const renderCardInit = () => {
+  formSearch?.addEventListener("submit", handleFormSubmit);
+
+  const renderCardInit = (): void => {
     const card = main.querySelector<HTMLElement>(".card");
     card?.replaceChildren();
 
@@ -66,19 +79,24 @@ export const GitHubPage = (): HTMLElement => {
     card?.append(cardInit);
   };
 
-  const renderCardProfile = () => {
+  const renderCardProfile = (): void => {
     const { profile, repos } = gitHubStore.getState();
+
+    if (!profile) {
+      renderCardInit();
+      return;
+    }
 
     const card = main.querySelector<HTMLElement>(".card");
     card?.replaceChildren();
 
     const cardProfile = CardProfile({
-      avatar_url: profile?.avatar_url!,
-      bio: profile?.bio!,
-      followers: profile?.followers!,
-      following: profile?.following!,
-      name: profile?.name!,
-      public_repos: profile?.public_repos!,
+      avatar_url: profile.avatar_url,
+      bio: profile.bio ?? "N/A",
+      followers: profile.followers ?? 0,
+      following: profile.following ?? 0,
+      name: profile.name ?? "N/A",
+      public_repos: profile.public_repos ?? 0,
       repos: repos,
     });
 
@@ -87,10 +105,21 @@ export const GitHubPage = (): HTMLElement => {
 
   renderCardInit();
 
-  gitHubStore.subscribe("profile", (profile) => {
-    if (!profile) return renderCardInit();
-    return renderCardProfile();
+  const unsubscribe = gitHubStore.subscribe("profile", (profile) => {
+    if (!profile) {
+      renderCardInit();
+      return;
+    }
+    renderCardProfile();
   });
+
+  main.cleanup = (): void => {
+    formSearch?.removeEventListener("submit", handleFormSubmit);
+
+    unsubscribe();
+
+    clearAlert();
+  };
 
   return main;
 };

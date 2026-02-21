@@ -1,7 +1,8 @@
-import { CardProfileProps } from "@src/entities/props";
+import type { CardProfileProps } from "@/types/props";
+import type { CardProfileComponent } from "@/types/components";
 
-import { SubTitle } from "@src/components/SubTitle/SubTitle";
-import { ItemLinkRepo } from "@src/components/ItemLinkRepo/ItemLinkRepo";
+import { SubTitle } from "@/components/SubTitle/SubTitle";
+import { ItemLinkRepo } from "@/components/ItemLinkRepo/ItemLinkRepo";
 
 export const CardProfile = ({
   avatar_url,
@@ -11,7 +12,7 @@ export const CardProfile = ({
   following,
   public_repos,
   repos,
-}: CardProfileProps): HTMLDivElement => {
+}: CardProfileProps): CardProfileComponent => {
   const divRoot = document.createElement("div");
   divRoot.className =
     "flex flex-col items-center justify-center w-[90%] h-full bg-secondary rounded-lg p-4 md:w-[55%] xl:w-[40%] 2xl:w-[35%] card-profile";

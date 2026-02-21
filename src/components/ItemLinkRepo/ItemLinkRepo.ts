@@ -1,9 +1,10 @@
-import { ItemLinkRepoProps } from "@src/entities/props";
+import type { ItemLinkRepoComponent } from "@/types/components";
+import type { ItemLinkRepoProps } from "@/types/props";
 
 export const ItemLinkRepo = ({
   name,
   href,
-}: ItemLinkRepoProps): HTMLLIElement => {
+}: ItemLinkRepoProps): ItemLinkRepoComponent => {
   const li = document.createElement("li");
   li.className =
     "text-white bg-primary rounded-lg cursor-pointer py-[.2rem] px-[.3rem] mr-[.3rem] mt-[.3rem]";
