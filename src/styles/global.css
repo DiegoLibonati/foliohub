@@ -10,7 +10,7 @@
   }
 
   body {
-    @apply min-h-screen w-full font-primary leading-relaxed antialiased;
+    @apply min-h-screen w-full bg-primary font-primary leading-relaxed antialiased;
   }
 
   img,

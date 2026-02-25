@@ -1,8 +1,13 @@
+import { mockEnvs } from "@tests/__mocks__/envs.mock";
+
+jest.mock("@/constants/envs", () => {
+  return { __esModule: true, default: mockEnvs };
+});
+
 import { screen } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 
 import type { Page } from "@/types/pages";
-import type { Repo } from "@/types/app";
 
 import { GitHubPage } from "@/pages/GitHubPage/GitHubPage";
 
@@ -87,10 +92,8 @@ describe("GitHubPage", () => {
   it("should search for profile when form is submitted", async () => {
     const user = userEvent.setup({ delay: null });
 
-    const mockRepos: Repo[] = [];
-
     mockedGithubService.getProfile.mockResolvedValue(mockProfile);
-    mockedGithubService.getRepos.mockResolvedValue(mockRepos);
+    mockedGithubService.getRepos.mockResolvedValue([]);
 
     renderPage();
 

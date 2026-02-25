@@ -41,7 +41,6 @@ I made a web page that allows the user to search for github profiles. If you fin
 "@eslint/js": "^9.39.2"
 "@testing-library/dom": "^10.4.0"
 "@testing-library/jest-dom": "^6.6.3"
-"@testing-library/react": "^16.0.1"
 "@testing-library/user-event": "^14.5.2"
 "@types/jest": "^29.5.14"
 "autoprefixer": "^10.4.16"
