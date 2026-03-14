@@ -50,7 +50,7 @@ I made a web page that allows the user to search for github profiles. If you fin
 "globals": "^17.3.0"
 "husky": "^9.1.7"
 "jest": "^29.7.0"
-"jest-environment-jsdom": "^29.7.0"
+"jest-environment-jsdom": "^30.2.0"
 "lint-staged": "^16.2.7"
 "postcss": "^8.4.33"
 "prettier": "^3.8.1"
@@ -78,6 +78,16 @@ For coverage report:
 
 ```bash
 npm run test:coverage
+```
+
+## Security
+
+### npm audit
+
+Check for vulnerabilities in dependencies:
+
+```bash
+npm audit
 ```
 
 ## Known Issues
