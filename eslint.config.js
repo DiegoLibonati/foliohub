@@ -13,10 +13,6 @@ export default [
       "coverage/**",
       "*.config.js",
       "*.config.ts",
-      "vite.config.ts",
-      "jest.config.ts",
-      "tailwind.config.js",
-      "postcss.config.js",
     ],
   },
 
