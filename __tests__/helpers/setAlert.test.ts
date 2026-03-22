@@ -30,14 +30,14 @@ describe("setAlert and clearAlert", () => {
       const alertRoot = document.querySelector<HTMLDivElement>(".alert");
 
       expect(alertText?.innerHTML).toBe("Test message");
-      expect(alertRoot?.style.opacity).toBe("100");
+      expect(alertRoot?.style.opacity).toBe("1");
     });
 
     it("should hide alert after timeout", () => {
       setAlert("Test message");
 
       const alertRoot = document.querySelector<HTMLDivElement>(".alert");
-      expect(alertRoot?.style.opacity).toBe("100");
+      expect(alertRoot?.style.opacity).toBe("1");
 
       jest.advanceTimersByTime(2000);
 
@@ -71,7 +71,7 @@ describe("setAlert and clearAlert", () => {
       const alertRoot = document.querySelector<HTMLDivElement>(".alert");
 
       expect(alertText?.innerHTML).toBe("Test message");
-      expect(alertRoot?.style.opacity).toBe("100");
+      expect(alertRoot?.style.opacity).toBe("1");
 
       clearAlert();
 
