@@ -31,7 +31,9 @@ describe("ItemLinkRepo Component", () => {
   it("should render link with correct attributes", () => {
     renderComponent(defaultProps);
 
-    const link = screen.getByRole("link", { name: "go to test-repo" });
+    const link = screen.getByRole("link", {
+      name: "Open test-repo repository on GitHub",
+    });
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute("href", "https://github.com/user/test-repo");
     expect(link).toHaveAttribute("target", "_blank");

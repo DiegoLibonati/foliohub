@@ -45,7 +45,7 @@ describe("CardProfile Component", () => {
       "src",
       "https://avatars.githubusercontent.com/u/123456"
     );
-    expect(avatar).toHaveAttribute("alt", "John Doe");
+    expect(avatar).toHaveAttribute("alt", "John Doe's GitHub profile avatar");
   });
 
   it("should render user name", () => {

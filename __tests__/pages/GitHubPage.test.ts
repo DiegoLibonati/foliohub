@@ -77,7 +77,9 @@ describe("GitHubPage", () => {
   it("should render search button", () => {
     renderPage();
 
-    const button = screen.getByRole("button", { name: "search profile" });
+    const button = screen.getByRole("button", {
+      name: "Search GitHub profile",
+    });
     expect(button).toBeInTheDocument();
   });
 

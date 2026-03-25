@@ -23,7 +23,7 @@ export const CardProfile = ({
                 <div class="flex items-center justify-center w-full h-full">
                     <img
                         src="${avatar_url}"
-                        alt="${name}"
+                        alt="${name}'s GitHub profile avatar"
                         id="img-profile"
                         class="h-32 w-32 rounded-full object-cover"
                     />
@@ -39,12 +39,12 @@ export const CardProfile = ({
                 </div>
             </div>
 
-            <div class="flex flex-row justify-around w-full mt-4 card__content-stats">
+            <div aria-label="Profile statistics" class="flex flex-row justify-around w-full mt-4 card__content-stats">
             </div>
 
             <div class="flex flex-col items-start justify-center w-full h-auto mt-4 card__repos">
                 <h3 class="text-white font-semibold">Repositories</h3>
-                <ul class="flex flex-wrap flex-row items-center justify-center w-full mt-2 card__repos-list"></ul>
+                <ul aria-label="Repository list" class="flex flex-wrap flex-row items-center justify-center w-full mt-2 card__repos-list"></ul>
             </div>
         </div>
     `;

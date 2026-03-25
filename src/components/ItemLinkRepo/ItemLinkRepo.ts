@@ -10,7 +10,7 @@ export const ItemLinkRepo = ({
     "text-white bg-primary rounded-lg cursor-pointer py-[.2rem] px-[.3rem] mr-[.3rem] mt-[.3rem]";
 
   li.innerHTML = `
-    <a aria-label="go to ${name}" target="_blank" href="${href}">
+    <a aria-label="Open ${name} repository on GitHub" target="_blank" href="${href}" rel="noopener noreferrer">
         ${name}
     </a>
   `;

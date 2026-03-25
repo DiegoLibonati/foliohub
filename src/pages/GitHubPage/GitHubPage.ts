@@ -40,8 +40,9 @@ export const GitHubPage = (): Page => {
     "flex flex-col items-center justify-center w-full min-h-screen main_container my-2 md:my-0";
 
   main.innerHTML = `
-    <form class="mb-2 p-2 rounded-lg bg-secondary form-search">
+    <form aria-label="Search GitHub profiles" class="mb-2 p-2 rounded-lg bg-secondary form-search">
         <input
+            aria-label="GitHub username"
             class="bg-secondary text-white outline-none"
             placeholder="Username"
             type="text"
@@ -49,13 +50,13 @@ export const GitHubPage = (): Page => {
         <button
             type="submit"
             class="bg-transparent text-white cursor-pointer"
-            aria-label="search profile"
+            aria-label="Search GitHub profile"
         >
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
         </button>
     </form>
 
-    <section class="flex flex-col items-center justify-center w-full h-auto card">
+    <section aria-label="Profile card" class="flex flex-col items-center justify-center w-full h-auto card">
     </section>
   `;
 
