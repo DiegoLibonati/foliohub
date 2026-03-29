@@ -2,7 +2,7 @@ import { screen } from "@testing-library/dom";
 
 import type { CardInitComponent } from "@/types/components";
 
-import { CardInit } from "@/components/CardInit/CardInit";
+import CardInit from "@/components/CardInit/CardInit";
 
 const renderComponent = (): CardInitComponent => {
   const container = CardInit();

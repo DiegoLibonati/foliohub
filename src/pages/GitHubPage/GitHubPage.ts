@@ -1,7 +1,7 @@
 import type { Page } from "@/types/pages";
 
-import { CardInit } from "@/components/CardInit/CardInit";
-import { CardProfile } from "@/components/CardProfile/CardProfile";
+import CardInit from "@/components/CardInit/CardInit";
+import CardProfile from "@/components/CardProfile/CardProfile";
 
 import { githubService } from "@/services/githubService";
 
@@ -34,7 +34,7 @@ const handleSearchUser = async (
   }
 };
 
-export const GitHubPage = (): Page => {
+const GitHubPage = (): Page => {
   const main = document.createElement("main") as Page;
   main.className =
     "flex flex-col items-center justify-center w-full min-h-screen main_container my-2 md:my-0";
@@ -124,3 +124,5 @@ export const GitHubPage = (): Page => {
 
   return main;
 };
+
+export default GitHubPage;

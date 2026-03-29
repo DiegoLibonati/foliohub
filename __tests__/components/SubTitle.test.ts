@@ -1,7 +1,7 @@
 import type { SubTitleProps } from "@/types/props";
 import type { SubTitleComponent } from "@/types/components";
 
-import { SubTitle } from "@/components/SubTitle/SubTitle";
+import SubTitle from "@/components/SubTitle/SubTitle";
 
 const renderComponent = (props: SubTitleProps): SubTitleComponent => {
   const container = SubTitle(props);

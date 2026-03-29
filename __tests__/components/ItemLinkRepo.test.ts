@@ -3,7 +3,7 @@ import { screen } from "@testing-library/dom";
 import type { ItemLinkRepoProps } from "@/types/props";
 import type { ItemLinkRepoComponent } from "@/types/components";
 
-import { ItemLinkRepo } from "@/components/ItemLinkRepo/ItemLinkRepo";
+import ItemLinkRepo from "@/components/ItemLinkRepo/ItemLinkRepo";
 
 const renderComponent = (props: ItemLinkRepoProps): ItemLinkRepoComponent => {
   const container = ItemLinkRepo(props);

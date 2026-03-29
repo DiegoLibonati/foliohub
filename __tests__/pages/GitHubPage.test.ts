@@ -9,7 +9,7 @@ import userEvent from "@testing-library/user-event";
 
 import type { Page } from "@/types/pages";
 
-import { GitHubPage } from "@/pages/GitHubPage/GitHubPage";
+import GitHubPage from "@/pages/GitHubPage/GitHubPage";
 
 import { githubService } from "@/services/githubService";
 

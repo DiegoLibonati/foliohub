@@ -1,10 +1,10 @@
 import type { CardProfileProps } from "@/types/props";
 import type { CardProfileComponent } from "@/types/components";
 
-import { SubTitle } from "@/components/SubTitle/SubTitle";
-import { ItemLinkRepo } from "@/components/ItemLinkRepo/ItemLinkRepo";
+import SubTitle from "@/components/SubTitle/SubTitle";
+import ItemLinkRepo from "@/components/ItemLinkRepo/ItemLinkRepo";
 
-export const CardProfile = ({
+const CardProfile = ({
   avatar_url,
   name,
   bio,
@@ -79,3 +79,5 @@ export const CardProfile = ({
 
   return divRoot;
 };
+
+export default CardProfile;

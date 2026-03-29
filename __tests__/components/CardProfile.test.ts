@@ -3,7 +3,7 @@ import { screen } from "@testing-library/dom";
 import type { CardProfileProps } from "@/types/props";
 import type { CardProfileComponent } from "@/types/components";
 
-import { CardProfile } from "@/components/CardProfile/CardProfile";
+import CardProfile from "@/components/CardProfile/CardProfile";
 
 const renderComponent = (props: CardProfileProps): CardProfileComponent => {
   const container = CardProfile(props);

@@ -1,6 +1,6 @@
 import type { CardInitComponent } from "@/types/components";
 
-export const CardInit = (): CardInitComponent => {
+const CardInit = (): CardInitComponent => {
   const divRoot = document.createElement("div");
   divRoot.className =
     "flex items-center justify-center w-[90%] h-full bg-secondary rounded-lg p-2 md:w-[55%] xl:w-[40%] 2xl:w-[35%] card-init";
@@ -13,3 +13,5 @@ export const CardInit = (): CardInitComponent => {
 
   return divRoot;
 };
+
+export default CardInit;

@@ -1,5 +1,5 @@
 import "@/index.css";
-import { GitHubPage } from "@/pages/GitHubPage/GitHubPage";
+import GitHubPage from "@/pages/GitHubPage/GitHubPage";
 
 const onInit = (): void => {
   const app = document.querySelector<HTMLDivElement>("#app");

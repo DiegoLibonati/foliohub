@@ -1,7 +1,7 @@
 import type { SubTitleComponent } from "@/types/components";
 import type { SubTitleProps } from "@/types/props";
 
-export const SubTitle = ({
+const SubTitle = ({
   id,
   className,
   children,
@@ -14,3 +14,5 @@ export const SubTitle = ({
 
   return heading;
 };
+
+export default SubTitle;

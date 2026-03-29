@@ -1,7 +1,7 @@
 import type { ItemLinkRepoComponent } from "@/types/components";
 import type { ItemLinkRepoProps } from "@/types/props";
 
-export const ItemLinkRepo = ({
+const ItemLinkRepo = ({
   name,
   href,
 }: ItemLinkRepoProps): ItemLinkRepoComponent => {
@@ -17,3 +17,5 @@ export const ItemLinkRepo = ({
 
   return li;
 };
+
+export default ItemLinkRepo;
