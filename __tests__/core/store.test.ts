@@ -30,31 +30,31 @@ describe("Store", () => {
   });
 
   it("should notify listeners when state changes", () => {
-    const listener = jest.fn();
+    const mockListener = jest.fn();
 
-    store.subscribe("counter", listener);
+    store.subscribe("counter", mockListener);
     store.setState({ counter: 10 });
 
-    expect(listener).toHaveBeenCalledWith(10);
+    expect(mockListener).toHaveBeenCalledWith(10);
   });
 
   it("should not notify listeners when value does not change", () => {
-    const listener = jest.fn();
+    const mockListener = jest.fn();
 
-    store.subscribe("counter", listener);
+    store.subscribe("counter", mockListener);
     store.setState({ counter: 0 });
 
-    expect(listener).not.toHaveBeenCalled();
+    expect(mockListener).not.toHaveBeenCalled();
   });
 
   it("should unsubscribe listener", () => {
-    const listener = jest.fn();
+    const mockListener = jest.fn();
 
-    const unsubscribe = store.subscribe("counter", listener);
+    const unsubscribe = store.subscribe("counter", mockListener);
     unsubscribe();
 
     store.setState({ counter: 20 });
 
-    expect(listener).not.toHaveBeenCalled();
+    expect(mockListener).not.toHaveBeenCalled();
   });
 });

@@ -51,13 +51,13 @@ describe("GitHubStore", () => {
   });
 
   it("should notify listeners when profile changes", async () => {
-    const listener = jest.fn();
+    const mockListener = jest.fn();
 
     mockedGithubService.getRepos.mockResolvedValue([]);
 
-    store.subscribe("profile", listener);
+    store.subscribe("profile", mockListener);
     await store.setProfile(mockProfile);
 
-    expect(listener).toHaveBeenCalledWith(mockProfile);
+    expect(mockListener).toHaveBeenCalledWith(mockProfile);
   });
 });
