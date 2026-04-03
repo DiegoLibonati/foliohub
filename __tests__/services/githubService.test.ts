@@ -10,9 +10,9 @@ import { apiUsers } from "@/services/axios";
 import { mockRepos } from "@tests/__mocks__/repos.mock";
 import { mockProfile } from "@tests/__mocks__/profile.mock";
 
-jest.mock("@/services/axios");
-
 const mockedApiUsers = apiUsers as jest.Mocked<typeof apiUsers>;
+
+jest.mock("@/services/axios");
 
 describe("githubService", () => {
   afterEach(() => {

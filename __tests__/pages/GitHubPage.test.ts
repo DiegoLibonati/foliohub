@@ -17,9 +17,9 @@ import { gitHubStore } from "@/stores/gitHubStore";
 
 import { mockProfile } from "@tests/__mocks__/profile.mock";
 
-jest.mock("@/services/githubService");
-
 const mockedGithubService = githubService as jest.Mocked<typeof githubService>;
+
+jest.mock("@/services/githubService");
 
 const renderPage = (): Page => {
   const container = GitHubPage();
