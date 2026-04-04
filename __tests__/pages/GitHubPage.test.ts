@@ -11,7 +11,7 @@ import type { Page } from "@/types/pages";
 
 import GitHubPage from "@/pages/GitHubPage/GitHubPage";
 
-import { githubService } from "@/services/githubService";
+import githubService from "@/services/githubService";
 
 import { gitHubStore } from "@/stores/gitHubStore";
 

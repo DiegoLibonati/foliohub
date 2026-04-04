@@ -4,7 +4,7 @@ import type { Profile, Repo } from "@/types/app";
 
 import { apiUsers } from "@/services/axios";
 
-export const githubService = {
+const githubService = {
   getProfile: async (profile: string): Promise<Profile> => {
     try {
       const request = await apiUsers.get<Profile>(`/${profile}`);
@@ -33,3 +33,5 @@ export const githubService = {
     }
   },
 };
+
+export default githubService;

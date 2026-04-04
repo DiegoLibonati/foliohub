@@ -1,6 +1,6 @@
 import { GitHubStore } from "@/stores/gitHubStore";
 
-import { githubService } from "@/services/githubService";
+import githubService from "@/services/githubService";
 
 import { mockRepos } from "@tests/__mocks__/repos.mock";
 import { mockProfile } from "@tests/__mocks__/profile.mock";

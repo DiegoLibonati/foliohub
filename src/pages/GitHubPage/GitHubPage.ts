@@ -3,7 +3,7 @@ import type { Page } from "@/types/pages";
 import CardInit from "@/components/CardInit/CardInit";
 import CardProfile from "@/components/CardProfile/CardProfile";
 
-import { githubService } from "@/services/githubService";
+import githubService from "@/services/githubService";
 
 import { gitHubStore } from "@/stores/gitHubStore";
 

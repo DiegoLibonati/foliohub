@@ -4,7 +4,7 @@ jest.mock("@/constants/envs", () => {
   return { __esModule: true, default: mockEnvs };
 });
 
-import { githubService } from "@/services/githubService";
+import githubService from "@/services/githubService";
 import { apiUsers } from "@/services/axios";
 
 import { mockRepos } from "@tests/__mocks__/repos.mock";

@@ -1,7 +1,7 @@
 import type { Profile, Repo } from "@/types/app";
 import type { GitHubState } from "@/types/states";
 
-import { githubService } from "@/services/githubService";
+import githubService from "@/services/githubService";
 
 import { Store } from "@/core/store";
 
