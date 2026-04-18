@@ -1,63 +1,95 @@
-import { GitHubStore } from "@/stores/gitHubStore";
-
+import { GitHubStore, gitHubStore } from "@/stores/gitHubStore";
 import githubService from "@/services/githubService";
 
-import { mockRepos } from "@tests/__mocks__/repos.mock";
 import { mockProfile } from "@tests/__mocks__/profile.mock";
-
-const mockedGithubService = githubService as jest.Mocked<typeof githubService>;
+import { mockRepos } from "@tests/__mocks__/repos.mock";
 
 jest.mock("@/services/githubService");
 
-describe("GitHubStore", () => {
+const mockGetRepos = githubService.getRepos as jest.Mock;
+
+describe("githubStore", () => {
   let store: GitHubStore;
 
   beforeEach(() => {
-    store = new GitHubStore({
-      profile: null,
-      repos: [],
+    store = new GitHubStore({ profile: null, repos: [] });
+    mockGetRepos.mockResolvedValue(mockRepos);
+  });
+
+  describe("initial state", () => {
+    it("should have null profile", () => {
+      expect(store.getState().profile).toBeNull();
+    });
+
+    it("should have empty repos", () => {
+      expect(store.getState().repos).toEqual([]);
     });
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
+  describe("setProfile", () => {
+    it("should set the profile and fetch repos when a profile is provided", async () => {
+      await store.setProfile(mockProfile);
+      const state = store.getState();
+      expect(state.profile).toEqual(mockProfile);
+      expect(state.repos).toEqual(mockRepos);
+    });
+
+    it("should call getRepos with the profile login", async () => {
+      await store.setProfile(mockProfile);
+      expect(mockGetRepos).toHaveBeenCalledWith(mockProfile.login);
+    });
+
+    it("should set profile to null and repos to empty when null is passed", async () => {
+      await store.setProfile(mockProfile);
+      await store.setProfile(null);
+      const state = store.getState();
+      expect(state.profile).toBeNull();
+      expect(state.repos).toEqual([]);
+    });
+
+    it("should not call getRepos when profile is null", async () => {
+      await store.setProfile(null);
+      expect(mockGetRepos).not.toHaveBeenCalled();
+    });
+
+    it("should notify profile subscribers when the profile changes", async () => {
+      const mockProfileListener = jest.fn();
+      store.subscribe("profile", mockProfileListener);
+      await store.setProfile(mockProfile);
+      expect(mockProfileListener).toHaveBeenCalledWith(mockProfile);
+    });
+
+    it("should notify repos subscribers when repos change", async () => {
+      const mockReposListener = jest.fn();
+      store.subscribe("repos", mockReposListener);
+      await store.setProfile(mockProfile);
+      expect(mockReposListener).toHaveBeenCalledWith(mockRepos);
+    });
+
+    it("should notify profile subscribers with null when null is passed", async () => {
+      await store.setProfile(mockProfile);
+      const mockProfileListener = jest.fn();
+      store.subscribe("profile", mockProfileListener);
+      await store.setProfile(null);
+      expect(mockProfileListener).toHaveBeenCalledWith(null);
+    });
   });
 
-  it("should initialize with null profile and empty repos", () => {
-    const state = store.getState();
+  describe("gitHubStore singleton", () => {
+    it("should be an instance of GitHubStore", () => {
+      expect(gitHubStore).toBeInstanceOf(GitHubStore);
+    });
 
-    expect(state.profile).toBeNull();
-    expect(state.repos).toEqual([]);
-  });
+    it("should expose a getState method", () => {
+      expect(typeof gitHubStore.getState).toBe("function");
+    });
 
-  it("should set profile and fetch repos", async () => {
-    mockedGithubService.getRepos.mockResolvedValue(mockRepos);
+    it("should expose a setState method", () => {
+      expect(typeof gitHubStore.setState).toBe("function");
+    });
 
-    await store.setProfile(mockProfile);
-
-    const state = store.getState();
-    expect(state.profile).toEqual(mockProfile);
-    expect(state.repos).toEqual(mockRepos);
-    expect(mockedGithubService.getRepos).toHaveBeenCalledWith("testuser");
-  });
-
-  it("should set profile to null with empty repos", async () => {
-    await store.setProfile(null);
-
-    const state = store.getState();
-    expect(state.profile).toBeNull();
-    expect(state.repos).toEqual([]);
-    expect(mockedGithubService.getRepos).not.toHaveBeenCalled();
-  });
-
-  it("should notify listeners when profile changes", async () => {
-    const mockListener = jest.fn();
-
-    mockedGithubService.getRepos.mockResolvedValue([]);
-
-    store.subscribe("profile", mockListener);
-    await store.setProfile(mockProfile);
-
-    expect(mockListener).toHaveBeenCalledWith(mockProfile);
+    it("should expose a subscribe method", () => {
+      expect(typeof gitHubStore.subscribe).toBe("function");
+    });
   });
 });

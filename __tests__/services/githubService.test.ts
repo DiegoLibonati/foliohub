@@ -1,18 +1,23 @@
-import { mockEnvs } from "@tests/__mocks__/envs.mock";
+import axios from "axios";
 
-jest.mock("@/constants/envs", () => {
-  return { __esModule: true, default: mockEnvs };
-});
+import type { Profile, Repo } from "@/types/app";
 
 import githubService from "@/services/githubService";
 import { apiUsers } from "@/services/axios";
 
-import { mockRepos } from "@tests/__mocks__/repos.mock";
 import { mockProfile } from "@tests/__mocks__/profile.mock";
+import { mockRepos } from "@tests/__mocks__/repos.mock";
 
-const mockedApiUsers = apiUsers as jest.Mocked<typeof apiUsers>;
+const mockApiGet = apiUsers.get as jest.Mock;
+const mockIsAxiosError = axios.isAxiosError as unknown as jest.Mock;
 
-jest.mock("@/services/axios");
+jest.mock("@/services/axios", () => ({
+  apiUsers: {
+    get: jest.fn(),
+  },
+}));
+
+jest.mock("axios");
 
 describe("githubService", () => {
   afterEach(() => {
@@ -20,36 +25,75 @@ describe("githubService", () => {
   });
 
   describe("getProfile", () => {
-    it("should fetch profile data successfully", async () => {
-      mockedApiUsers.get.mockResolvedValue({ data: mockProfile });
-
-      const result = await githubService.getProfile("testuser");
-
+    it("should return profile data on success", async () => {
+      mockApiGet.mockResolvedValue({ data: mockProfile });
+      const result: Profile = await githubService.getProfile("testuser");
       expect(result).toEqual(mockProfile);
-      expect(mockedApiUsers.get).toHaveBeenCalledWith("/testuser");
     });
 
-    it("should throw error when profile fetch fails", async () => {
-      mockedApiUsers.get.mockRejectedValue(new Error("Network error"));
+    it("should call apiUsers.get with the correct path", async () => {
+      mockApiGet.mockResolvedValue({ data: mockProfile });
+      await githubService.getProfile("testuser");
+      expect(mockApiGet).toHaveBeenCalledWith("/testuser");
+    });
 
-      await expect(githubService.getProfile("testuser")).rejects.toThrow();
+    it("should throw an HTTP error message when an axios error occurs", async () => {
+      const axiosError = { response: { status: 404 }, message: "Not Found" };
+      mockApiGet.mockRejectedValue(axiosError);
+      mockIsAxiosError.mockReturnValue(true);
+      await expect(githubService.getProfile("nonexistent")).rejects.toThrow(
+        "HTTP error! status: 404 - Not Found"
+      );
+    });
+
+    it("should handle missing response status in the axios error", async () => {
+      const axiosError = { response: undefined, message: "Request failed" };
+      mockApiGet.mockRejectedValue(axiosError);
+      mockIsAxiosError.mockReturnValue(true);
+      await expect(githubService.getProfile("testuser")).rejects.toThrow(
+        "HTTP error! status: undefined - Request failed"
+      );
+    });
+
+    it("should re-throw non-axios errors as-is", async () => {
+      const error = new Error("Network Error");
+      mockApiGet.mockRejectedValue(error);
+      mockIsAxiosError.mockReturnValue(false);
+      await expect(githubService.getProfile("testuser")).rejects.toThrow(
+        "Network Error"
+      );
     });
   });
 
   describe("getRepos", () => {
-    it("should fetch repos data successfully", async () => {
-      mockedApiUsers.get.mockResolvedValue({ data: mockRepos });
-
-      const result = await githubService.getRepos("testuser");
-
+    it("should return repos data on success", async () => {
+      mockApiGet.mockResolvedValue({ data: mockRepos });
+      const result: Repo[] = await githubService.getRepos("testuser");
       expect(result).toEqual(mockRepos);
-      expect(mockedApiUsers.get).toHaveBeenCalledWith("/testuser/repos");
     });
 
-    it("should throw error when repos fetch fails", async () => {
-      mockedApiUsers.get.mockRejectedValue(new Error("Network error"));
+    it("should call apiUsers.get with the correct path", async () => {
+      mockApiGet.mockResolvedValue({ data: mockRepos });
+      await githubService.getRepos("testuser");
+      expect(mockApiGet).toHaveBeenCalledWith("/testuser/repos");
+    });
 
-      await expect(githubService.getRepos("testuser")).rejects.toThrow();
+    it("should throw an HTTP error message when an axios error occurs", async () => {
+      const axiosError = { response: { status: 403 }, message: "Forbidden" };
+      mockApiGet.mockRejectedValue(axiosError);
+      mockIsAxiosError.mockReturnValue(true);
+      await expect(githubService.getRepos("testuser")).rejects.toThrow(
+        "HTTP error! status: 403 - Forbidden"
+      );
+    });
+
+    it("should re-throw non-axios errors as-is", async () => {
+      const error = new Error("Unexpected Error");
+      mockApiGet.mockRejectedValue(error);
+      mockIsAxiosError.mockReturnValue(false);
+      await expect(githubService.getRepos("testuser")).rejects.toThrow(
+        "Unexpected Error"
+      );
     });
   });
 });

@@ -1,4 +1,4 @@
-# Github Profiles
+# Foliohub
 
 ## Educational Purpose
 
@@ -17,7 +17,13 @@ The application will open automatically at `http://localhost:3000`
 
 ## Description
 
-I made a web page that allows the user to search for github profiles. If you find a profile it will show: its profile image, its user, its description, how many followers it has, how many people it follows and how many repos it has. And it will make a list of buttons with each repo, also if you click on any repo it will take you to the official link of that repository in github. If it doesn't find it, it will launch an alert.
+**Foliohub** is a single-page web application that lets you explore any public GitHub profile instantly. Enter a GitHub username into the search bar and the app fetches live data directly from the GitHub API, presenting a clean profile card that includes the user's avatar, display name, bio, follower count, following count, and total public repository count.
+
+Below the profile card, Foliohub renders a dynamic list of all the user's public repositories as clickable buttons. Each button opens the corresponding repository page on GitHub in a new tab, giving you one-click access to any project on that account.
+
+If the searched username does not exist or the request fails, the app immediately surfaces an alert so you always know what happened.
+
+The application is built with vanilla TypeScript (no framework) on top of Vite, styled with TailwindCSS, and communicates with the GitHub REST API through Axios. State is managed with a custom lightweight pub/sub store, and the full codebase is covered by a Jest + Testing Library test suite with a 70 % coverage threshold enforced on every run.
 
 ## Technologies used
 
@@ -63,11 +69,7 @@ I made a web page that allows the user to search for github profiles. If you fin
 
 ## Portfolio Link
 
-[`https://www.diegolibonati.com.ar/#/project/Github-Profiles`](https://www.diegolibonati.com.ar/#/project/Github-Profiles)
-
-## Video
-
-https://github.com/DiegoLibonati/Github-Profile-Page/assets/99032604/7f2dc86a-c82a-4159-bce7-d651991426df
+[`https://www.diegolibonati.com.ar/#/project/foliohub`](https://www.diegolibonati.com.ar/#/project/foliohub)
 
 ## Testing
 

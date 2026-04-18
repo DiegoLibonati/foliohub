@@ -1,58 +1,80 @@
+import { screen } from "@testing-library/dom";
+
 import type { SubTitleProps } from "@/types/props";
 import type { SubTitleComponent } from "@/types/components";
 
 import SubTitle from "@/components/SubTitle/SubTitle";
 
-const renderComponent = (props: SubTitleProps): SubTitleComponent => {
-  const container = SubTitle(props);
-  document.body.appendChild(container);
-  return container;
+const defaultProps: SubTitleProps = {
+  id: "subtitle-test",
+  children: "Hello World",
+  className: "font-bold",
 };
 
-describe("SubTitle Component", () => {
+const renderComponent = (
+  props: Partial<SubTitleProps> = {}
+): SubTitleComponent => {
+  const element = SubTitle({ ...defaultProps, ...props });
+  document.body.appendChild(element);
+  return element;
+};
+
+describe("SubTitle", () => {
   afterEach(() => {
     document.body.innerHTML = "";
   });
 
-  const defaultProps: SubTitleProps = {
-    id: "test-subtitle",
-    children: "Test Content",
-  };
+  describe("rendering", () => {
+    it("should render an h3 element", () => {
+      renderComponent();
+      expect(screen.getByRole("heading", { level: 3 })).toBeInTheDocument();
+    });
 
-  it("should render h3 with correct attributes", () => {
-    renderComponent(defaultProps);
+    it("should set the id attribute", () => {
+      renderComponent();
+      expect(screen.getByRole("heading", { level: 3 })).toHaveAttribute(
+        "id",
+        "subtitle-test"
+      );
+    });
 
-    const heading = document.querySelector<HTMLHeadingElement>("h3");
-    expect(heading).toBeInTheDocument();
-    expect(heading).toHaveAttribute("id", "test-subtitle");
-    expect(heading).toHaveClass("text-white");
-    expect(heading?.innerHTML).toBe("Test Content");
+    it("should apply className alongside the base class", () => {
+      renderComponent();
+      expect(screen.getByRole("heading", { level: 3 })).toHaveClass(
+        "text-white",
+        "font-bold"
+      );
+    });
+
+    it("should render children as text content", () => {
+      renderComponent();
+      expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
+        "Hello World"
+      );
+    });
+
+    it("should render children with HTML markup", () => {
+      renderComponent({
+        children: '100 <span class="font-semibold"> Followers</span>',
+      });
+      const heading = screen.getByRole("heading", { level: 3 });
+      expect(heading).toHaveTextContent("100");
+      expect(heading).toHaveTextContent("Followers");
+    });
   });
 
-  it("should apply additional className when provided", () => {
-    const propsWithClass: SubTitleProps = {
-      ...defaultProps,
-      className: "custom-class",
-    };
+  describe("edge cases", () => {
+    it("should render empty content when children is not provided", () => {
+      const element = SubTitle({ id: defaultProps.id });
+      document.body.appendChild(element);
+      expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent("");
+    });
 
-    renderComponent(propsWithClass);
-
-    const heading = document.querySelector<HTMLHeadingElement>("h3");
-    expect(heading).toHaveClass("text-white", "custom-class");
-  });
-
-  it("should render HTML content", () => {
-    const propsWithHTML: SubTitleProps = {
-      id: "test",
-      children: '10 <span class="font-semibold">Followers</span>',
-    };
-
-    renderComponent(propsWithHTML);
-
-    const heading = document.querySelector<HTMLHeadingElement>("h3");
-    expect(heading?.innerHTML).toContain("Followers");
-    expect(heading?.querySelector<HTMLSpanElement>("span")).toHaveClass(
-      "font-semibold"
-    );
+    it("should still apply the base class when className is undefined", () => {
+      renderComponent({ className: undefined });
+      expect(screen.getByRole("heading", { level: 3 })).toHaveClass(
+        "text-white"
+      );
+    });
   });
 });

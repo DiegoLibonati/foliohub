@@ -5,101 +5,131 @@ import type { CardProfileComponent } from "@/types/components";
 
 import CardProfile from "@/components/CardProfile/CardProfile";
 
-const renderComponent = (props: CardProfileProps): CardProfileComponent => {
-  const container = CardProfile(props);
-  document.body.appendChild(container);
-  return container;
+import { mockRepoFlat } from "@tests/__mocks__/repoFlat.mock";
+
+const defaultProps: CardProfileProps = {
+  avatar_url: "https://example.com/avatar.jpg",
+  name: "Test User",
+  bio: "Test bio",
+  followers: 100,
+  following: 50,
+  public_repos: 25,
+  repos: mockRepoFlat,
 };
 
-describe("CardProfile Component", () => {
+const renderComponent = (
+  props: Partial<CardProfileProps> = {}
+): CardProfileComponent => {
+  const element = CardProfile({ ...defaultProps, ...props });
+  document.body.appendChild(element);
+  return element;
+};
+
+describe("CardProfile", () => {
   afterEach(() => {
     document.body.innerHTML = "";
   });
 
-  const defaultProps: CardProfileProps = {
-    avatar_url: "https://avatars.githubusercontent.com/u/123456",
-    name: "John Doe",
-    bio: "Software Developer",
-    followers: 100,
-    following: 50,
-    public_repos: 25,
-    repos: [
-      { name: "repo-1", html_url: "https://github.com/user/repo-1" },
-      { name: "repo-2", html_url: "https://github.com/user/repo-2" },
-    ],
-  };
+  describe("rendering", () => {
+    it("should render the card with card-profile class", () => {
+      renderComponent();
+      expect(
+        document.querySelector<HTMLDivElement>(".card-profile")
+      ).toBeInTheDocument();
+    });
 
-  it("should render card with correct structure", () => {
-    renderComponent(defaultProps);
+    it("should render the avatar image with correct src", () => {
+      renderComponent();
+      const img = screen.getByAltText("Test User's GitHub profile avatar");
+      expect(img).toHaveAttribute("src", "https://example.com/avatar.jpg");
+    });
 
-    const card = document.querySelector<HTMLDivElement>(".card-profile");
-    expect(card).toBeInTheDocument();
+    it("should render the profile name as an h2", () => {
+      renderComponent();
+      expect(
+        screen.getByRole("heading", { name: "Test User", level: 2 })
+      ).toBeInTheDocument();
+    });
+
+    it("should render the bio text", () => {
+      renderComponent();
+      expect(document.getElementById("description-profile")).toHaveTextContent(
+        "Test bio"
+      );
+    });
+
+    it("should render the followers count and label", () => {
+      renderComponent();
+      const el = document.getElementById("followers-profile");
+      expect(el).toBeInTheDocument();
+      expect(el).toHaveTextContent("100");
+      expect(el).toHaveTextContent("Followers");
+    });
+
+    it("should render the following count and label", () => {
+      renderComponent();
+      const el = document.getElementById("following-profile");
+      expect(el).toBeInTheDocument();
+      expect(el).toHaveTextContent("50");
+      expect(el).toHaveTextContent("Following");
+    });
+
+    it("should render the public repos count and label", () => {
+      renderComponent();
+      const el = document.getElementById("repos-profile");
+      expect(el).toBeInTheDocument();
+      expect(el).toHaveTextContent("25");
+      expect(el).toHaveTextContent("Repos");
+    });
+
+    it("should render a link for each repo", () => {
+      renderComponent();
+      expect(screen.getAllByRole("link")).toHaveLength(2);
+    });
+
+    it("should render repo links with correct hrefs", () => {
+      renderComponent();
+      expect(
+        screen.getByRole("link", { name: /open repo-1 repository on github/i })
+      ).toHaveAttribute("href", "https://github.com/testuser/repo-1");
+      expect(
+        screen.getByRole("link", { name: /open repo-2 repository on github/i })
+      ).toHaveAttribute("href", "https://github.com/testuser/repo-2");
+    });
+
+    it("should render the repository list with an accessible name", () => {
+      renderComponent();
+      expect(
+        screen.getByRole("list", { name: /repository list/i })
+      ).toBeInTheDocument();
+    });
+
+    it("should render the profile statistics container", () => {
+      renderComponent();
+      const statsSection = document.querySelector<HTMLDivElement>(
+        ".card__content-stats"
+      );
+      expect(statsSection).toBeInTheDocument();
+      expect(statsSection).toHaveAttribute("aria-label", "Profile statistics");
+    });
   });
 
-  it("should render avatar image", () => {
-    renderComponent(defaultProps);
+  describe("edge cases", () => {
+    it("should render no repo links when repos is empty", () => {
+      renderComponent({ repos: [] });
+      expect(screen.queryAllByRole("link")).toHaveLength(0);
+    });
 
-    const avatar = document.querySelector<HTMLImageElement>("#img-profile");
-    expect(avatar).toBeInTheDocument();
-    expect(avatar).toHaveAttribute(
-      "src",
-      "https://avatars.githubusercontent.com/u/123456"
-    );
-    expect(avatar).toHaveAttribute("alt", "John Doe's GitHub profile avatar");
-  });
-
-  it("should render user name", () => {
-    renderComponent(defaultProps);
-
-    const name = document.querySelector<HTMLHeadingElement>("#name-profile");
-    expect(name).toBeInTheDocument();
-    expect(name?.textContent).toBe("John Doe");
-  });
-
-  it("should render bio", () => {
-    renderComponent(defaultProps);
-
-    const bio = document.querySelector<HTMLParagraphElement>(
-      "#description-profile"
-    );
-    expect(bio).toBeInTheDocument();
-    expect(bio?.textContent).toBe("Software Developer");
-  });
-
-  it("should render followers count", () => {
-    renderComponent(defaultProps);
-
-    expect(screen.getByText(/100/)).toBeInTheDocument();
-    expect(screen.getByText(/Followers/)).toBeInTheDocument();
-  });
-
-  it("should render following count", () => {
-    renderComponent(defaultProps);
-
-    expect(screen.getByText(/50/)).toBeInTheDocument();
-    expect(screen.getByText(/Following/)).toBeInTheDocument();
-  });
-
-  it("should render repos count", () => {
-    renderComponent(defaultProps);
-
-    const reposCount =
-      document.querySelector<HTMLHeadingElement>("#repos-profile");
-    expect(reposCount).toBeInTheDocument();
-    expect(reposCount?.textContent).toContain("25");
-    expect(reposCount?.textContent).toContain("Repos");
-  });
-
-  it("should render repositories title", () => {
-    renderComponent(defaultProps);
-
-    expect(screen.getByText("Repositories")).toBeInTheDocument();
-  });
-
-  it("should render repository links", () => {
-    renderComponent(defaultProps);
-
-    expect(screen.getByText("repo-1")).toBeInTheDocument();
-    expect(screen.getByText("repo-2")).toBeInTheDocument();
+    it("should render a single repo link when repos has one item", () => {
+      renderComponent({
+        repos: [
+          {
+            name: "solo-repo",
+            html_url: "https://github.com/testuser/solo-repo",
+          },
+        ],
+      });
+      expect(screen.getAllByRole("link")).toHaveLength(1);
+    });
   });
 });

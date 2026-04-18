@@ -1,7 +1,7 @@
 {
-  "name": "Github Profiles",
-  "short_name": "Github Profiles",
-  "description": "I made a web page that allows the user to search for github profiles. If you find a profile it will show: its profile image, its user, its description, how many followers it has, how many people it follows and how many repos it has. And it will make a list of buttons with each repo, also if you click on any repo it will take you to the official link of that repository in github. If it doesn't find it, it will launch an alert.",
+  "name": "Foliohub",
+  "short_name": "Foliohub",
+  "description": "Foliohub is a single-page web application that lets you explore any public GitHub profile instantly. Enter a GitHub username into the search bar and the app fetches live data directly from the GitHub API, presenting a clean profile card that includes the user's avatar, display name, bio, follower count, following count, and total public repository count.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

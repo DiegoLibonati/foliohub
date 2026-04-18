@@ -34,7 +34,7 @@ const handleSearchUser = async (
   }
 };
 
-const GitHubPage = (): Page => {
+const FoliohubPage = (): Page => {
   const main = document.createElement("main") as Page;
   main.className =
     "flex flex-col items-center justify-center w-full min-h-screen main_container my-2 md:my-0";
@@ -125,4 +125,4 @@ const GitHubPage = (): Page => {
   return main;
 };
 
-export default GitHubPage;
+export default FoliohubPage;
