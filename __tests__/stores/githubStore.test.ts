@@ -4,9 +4,9 @@ import githubService from "@/services/githubService";
 import { mockProfile } from "@tests/__mocks__/profile.mock";
 import { mockRepos } from "@tests/__mocks__/repos.mock";
 
-jest.mock("@/services/githubService");
-
 const mockGetRepos = githubService.getRepos as jest.Mock;
+
+jest.mock("@/services/githubService");
 
 describe("githubStore", () => {
   let store: GitHubStore;
