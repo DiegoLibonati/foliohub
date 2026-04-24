@@ -13,14 +13,18 @@ const renderComponent = (): CardInitComponent => {
 describe("CardInit", () => {
   afterEach(() => {
     document.body.innerHTML = "";
+    jest.clearAllMocks();
   });
 
   describe("rendering", () => {
     it("should render a div with the card-init class", () => {
-      renderComponent();
-      expect(
-        document.querySelector<HTMLDivElement>(".card-init")
-      ).toBeInTheDocument();
+      const element = renderComponent();
+      expect(element).toHaveClass("card-init");
+    });
+
+    it("should apply the base CSS classes", () => {
+      const element = renderComponent();
+      expect(element).toHaveClass("bg-secondary", "rounded-lg");
     });
 
     it("should render an h1 heading", () => {

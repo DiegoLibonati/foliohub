@@ -28,6 +28,7 @@ const renderComponent = (
 describe("CardProfile", () => {
   afterEach(() => {
     document.body.innerHTML = "";
+    jest.clearAllMocks();
   });
 
   describe("rendering", () => {

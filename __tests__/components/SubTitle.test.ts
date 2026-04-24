@@ -22,6 +22,7 @@ const renderComponent = (
 describe("SubTitle", () => {
   afterEach(() => {
     document.body.innerHTML = "";
+    jest.clearAllMocks();
   });
 
   describe("rendering", () => {
@@ -70,8 +71,9 @@ describe("SubTitle", () => {
       expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent("");
     });
 
-    it("should still apply the base class when className is undefined", () => {
-      renderComponent({ className: undefined });
+    it("should still apply the base class when className is not provided", () => {
+      const element = SubTitle({ id: defaultProps.id });
+      document.body.appendChild(element);
       expect(screen.getByRole("heading", { level: 3 })).toHaveClass(
         "text-white"
       );

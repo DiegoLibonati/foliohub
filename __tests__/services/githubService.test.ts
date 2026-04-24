@@ -3,6 +3,7 @@ import axios from "axios";
 import type { Profile, Repo } from "@/types/app";
 
 import githubService from "@/services/githubService";
+
 import { apiUsers } from "@/services/axios";
 
 import { mockProfile } from "@tests/__mocks__/profile.mock";
@@ -12,7 +13,6 @@ const mockApiGet = apiUsers.get as jest.Mock;
 const mockIsAxiosError = axios.isAxiosError as unknown as jest.Mock;
 
 jest.mock("axios");
-
 jest.mock("@/services/axios", () => ({
   apiUsers: {
     get: jest.fn(),

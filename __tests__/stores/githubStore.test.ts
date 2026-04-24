@@ -1,4 +1,5 @@
 import { GitHubStore, gitHubStore } from "@/stores/gitHubStore";
+
 import githubService from "@/services/githubService";
 
 import { mockProfile } from "@tests/__mocks__/profile.mock";
@@ -14,6 +15,10 @@ describe("githubStore", () => {
   beforeEach(() => {
     store = new GitHubStore({ profile: null, repos: [] });
     mockGetRepos.mockResolvedValue(mockRepos);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   describe("initial state", () => {

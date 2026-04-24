@@ -23,6 +23,7 @@ describe("setAlert", () => {
     clearAlert();
     document.body.innerHTML = "";
     jest.useRealTimers();
+    jest.clearAllMocks();
   });
 
   describe("setAlert", () => {
@@ -32,7 +33,7 @@ describe("setAlert", () => {
       expect(alertText.innerHTML).toBe("Test message");
     });
 
-    it("should set the opacity of the alert root to 100", () => {
+    it("should set the opacity of the alert root to 1", () => {
       const { alertRoot } = setupDOM();
       setAlert("Test message");
       expect(alertRoot.style.opacity).toBe("1");

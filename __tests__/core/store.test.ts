@@ -18,6 +18,10 @@ describe("Store", () => {
     store = new TestStore();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe("getState", () => {
     it("should return the initial state", () => {
       expect(store.getState()).toEqual({ count: 0, name: "initial" });

@@ -21,6 +21,7 @@ const renderComponent = (
 describe("ItemLinkRepo", () => {
   afterEach(() => {
     document.body.innerHTML = "";
+    jest.clearAllMocks();
   });
 
   describe("rendering", () => {
@@ -29,7 +30,7 @@ describe("ItemLinkRepo", () => {
       expect(screen.getByRole("listitem")).toBeInTheDocument();
     });
 
-    it("should render a link with an accessible name", () => {
+    it("should render a link with an accessible name based on the repo name", () => {
       renderComponent();
       expect(
         screen.getByRole("link", { name: /open my-repo repository on github/i })
@@ -60,6 +61,40 @@ describe("ItemLinkRepo", () => {
     it("should display the repo name as text content", () => {
       renderComponent();
       expect(screen.getByRole("link")).toHaveTextContent("my-repo");
+    });
+
+    it("should apply the base CSS classes to the list item", () => {
+      renderComponent();
+      expect(screen.getByRole("listitem")).toHaveClass(
+        "text-white",
+        "bg-primary",
+        "rounded-lg",
+        "cursor-pointer"
+      );
+    });
+  });
+
+  describe("edge cases", () => {
+    it("should update the aria-label when a different name is provided", () => {
+      renderComponent({ name: "other-project" });
+      expect(
+        screen.getByRole("link", {
+          name: /open other-project repository on github/i,
+        })
+      ).toBeInTheDocument();
+    });
+
+    it("should display the correct name as text content when a different name is provided", () => {
+      renderComponent({ name: "other-project" });
+      expect(screen.getByRole("link")).toHaveTextContent("other-project");
+    });
+
+    it("should use the correct href when a different href is provided", () => {
+      renderComponent({ href: "https://github.com/testuser/other-project" });
+      expect(screen.getByRole("link")).toHaveAttribute(
+        "href",
+        "https://github.com/testuser/other-project"
+      );
     });
   });
 });
