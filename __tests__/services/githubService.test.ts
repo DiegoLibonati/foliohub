@@ -1,4 +1,4 @@
-import axios from "axios";
+import { isAxiosError } from "axios";
 
 import type { Profile, Repo } from "@/types/app";
 
@@ -9,10 +9,13 @@ import { apiUsers } from "@/services/axios";
 import { mockProfile } from "@tests/__mocks__/profile.mock";
 import { mockRepos } from "@tests/__mocks__/repos.mock";
 
-const mockApiGet = apiUsers.get as jest.Mock;
-const mockIsAxiosError = axios.isAxiosError as unknown as jest.Mock;
+const mockApiGet = jest.mocked(apiUsers.get);
+const mockIsAxiosError = jest.mocked(isAxiosError);
 
-jest.mock("axios");
+jest.mock("axios", () => ({
+  ...(jest.requireActual("axios") as unknown as object),
+  isAxiosError: jest.fn(),
+}));
 jest.mock("@/services/axios", () => ({
   apiUsers: {
     get: jest.fn(),

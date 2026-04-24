@@ -12,8 +12,8 @@ import { gitHubStore } from "@/stores/gitHubStore";
 import { mockProfile } from "@tests/__mocks__/profile.mock";
 import { mockRepos } from "@tests/__mocks__/repos.mock";
 
-const mockGetProfile = githubService.getProfile as jest.Mock;
-const mockGetRepos = githubService.getRepos as jest.Mock;
+const mockGetProfile = jest.mocked(githubService.getProfile);
+const mockGetRepos = jest.mocked(githubService.getRepos);
 
 let page: Page;
 

@@ -66,14 +66,12 @@ describe("SubTitle", () => {
 
   describe("edge cases", () => {
     it("should render empty content when children is not provided", () => {
-      const element = SubTitle({ id: defaultProps.id });
-      document.body.appendChild(element);
+      renderComponent({ children: undefined });
       expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent("");
     });
 
     it("should still apply the base class when className is not provided", () => {
-      const element = SubTitle({ id: defaultProps.id });
-      document.body.appendChild(element);
+      renderComponent({ className: undefined });
       expect(screen.getByRole("heading", { level: 3 })).toHaveClass(
         "text-white"
       );

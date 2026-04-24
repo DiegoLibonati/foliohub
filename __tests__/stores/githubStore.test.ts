@@ -5,7 +5,7 @@ import githubService from "@/services/githubService";
 import { mockProfile } from "@tests/__mocks__/profile.mock";
 import { mockRepos } from "@tests/__mocks__/repos.mock";
 
-const mockGetRepos = githubService.getRepos as jest.Mock;
+const mockGetRepos = jest.mocked(githubService.getRepos);
 
 jest.mock("@/services/githubService");
 
