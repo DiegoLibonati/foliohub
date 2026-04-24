@@ -1,7 +1,7 @@
 {
   "name": "Foliohub",
   "short_name": "Foliohub",
-  "description": "Foliohub is a single-page web application that lets you explore any public GitHub profile instantly. Enter a GitHub username into the search bar and the app fetches live data directly from the GitHub API, presenting a clean profile card that includes the user's avatar, display name, bio, follower count, following count, and total public repository count.",
+  "description": "Foliohub is a single-page web application that lets you explore any public GitHub profile instantly.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
