@@ -53,14 +53,15 @@ describe("CardProfile", () => {
 
     it("should render the bio text", () => {
       renderComponent();
-      expect(document.getElementById("description-profile")).toHaveTextContent(
-        "Test bio"
-      );
+      expect(
+        document.querySelector<HTMLParagraphElement>("#description-profile")
+      ).toHaveTextContent("Test bio");
     });
 
     it("should render the followers count and label", () => {
       renderComponent();
-      const el = document.getElementById("followers-profile");
+      const el =
+        document.querySelector<HTMLHeadingElement>("#followers-profile");
       expect(el).toBeInTheDocument();
       expect(el).toHaveTextContent("100");
       expect(el).toHaveTextContent("Followers");
@@ -68,7 +69,8 @@ describe("CardProfile", () => {
 
     it("should render the following count and label", () => {
       renderComponent();
-      const el = document.getElementById("following-profile");
+      const el =
+        document.querySelector<HTMLHeadingElement>("#following-profile");
       expect(el).toBeInTheDocument();
       expect(el).toHaveTextContent("50");
       expect(el).toHaveTextContent("Following");
@@ -76,7 +78,7 @@ describe("CardProfile", () => {
 
     it("should render the public repos count and label", () => {
       renderComponent();
-      const el = document.getElementById("repos-profile");
+      const el = document.querySelector<HTMLHeadingElement>("#repos-profile");
       expect(el).toBeInTheDocument();
       expect(el).toHaveTextContent("25");
       expect(el).toHaveTextContent("Repos");
