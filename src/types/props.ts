@@ -1,8 +1,8 @@
 import type { RepoFlat } from "@/types/app";
 
 interface DefaultProps {
-  className?: string | undefined;
-  children?: string | undefined;
+  className?: string;
+  children?: string;
 }
 
 export interface CardProfileProps {
