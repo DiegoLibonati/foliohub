@@ -1,13 +1,16 @@
 import axios from "axios";
 
 import type { Profile, Repo } from "@/types/app";
+import type { ResponseDirect } from "@/types/responses";
 
 import { apiUsers } from "@/services/axios";
 
 const githubService = {
-  getProfile: async (profile: string): Promise<Profile> => {
+  getProfile: async (profile: string): Promise<ResponseDirect<Profile>> => {
     try {
-      const request = await apiUsers.get<Profile>(`/${profile}`);
+      const request = await apiUsers.get<ResponseDirect<Profile>>(
+        `/${profile}`
+      );
       return request.data;
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -19,9 +22,11 @@ const githubService = {
     }
   },
 
-  getRepos: async (username: string): Promise<Repo[]> => {
+  getRepos: async (username: string): Promise<ResponseDirect<Repo[]>> => {
     try {
-      const request = await apiUsers.get<Repo[]>(`/${username}/repos`);
+      const request = await apiUsers.get<ResponseDirect<Repo[]>>(
+        `/${username}/repos`
+      );
       return request.data;
     } catch (e) {
       if (axios.isAxiosError(e)) {
