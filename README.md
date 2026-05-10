@@ -6,15 +6,6 @@ This project was created primarily for **educational and learning purposes**.
 While it is well-structured and could technically be used in production, it is **not intended for commercialization**.  
 The main goal is to explore and demonstrate best practices, patterns, and technologies in software development.
 
-## Getting Started
-
-1. Clone the repository
-2. Navigate to the project folder
-3. Execute: `npm install`
-4. Execute: `npm run dev`
-
-The application will open automatically at `http://localhost:3000`
-
 ## Description
 
 **Foliohub** is a single-page web application that lets you explore any public GitHub profile instantly. Enter a GitHub username into the search bar and the app fetches live data directly from the GitHub API, presenting a clean profile card that includes the user's avatar, display name, bio, follower count, following count, and total public repository count.
@@ -68,11 +59,21 @@ The application is built with vanilla TypeScript (no framework) on top of Vite, 
 "vite": "^7.1.5"
 ```
 
-## Portfolio Link
+## Getting Started
 
-[`https://www.diegolibonati.com.ar/#/project/foliohub`](https://www.diegolibonati.com.ar/#/project/foliohub)
+With the stack above installed locally, follow these steps to run the app:
+
+1. Clone the repository
+2. Navigate to the project folder
+3. Copy `.env.example` to `.env` so Vite can resolve the GitHub API base URL
+4. Execute: `npm install`
+5. Execute: `npm run dev`
+
+The application will open automatically at `http://localhost:3000`.
 
 ## Testing
+
+Once the app is running locally, you can verify behavior with the included Jest + Testing Library suite.
 
 1. Navigate to the project folder
 2. Execute: `npm test`
@@ -83,9 +84,11 @@ For coverage report:
 npm run test:coverage
 ```
 
-## Security
+## Security Audit
 
-### npm audit
+Beyond the test suite, dependency vulnerabilities are tracked separately via npm's built-in audit tool.
+
+#### npm audit
 
 Check for vulnerabilities in dependencies:
 
@@ -96,3 +99,7 @@ npm audit
 ## Known Issues
 
 None at the moment.
+
+## Portfolio Link
+
+[`https://www.diegolibonati.com.ar/#/project/foliohub`](https://www.diegolibonati.com.ar/#/project/foliohub)
