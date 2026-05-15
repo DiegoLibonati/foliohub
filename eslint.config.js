@@ -12,7 +12,7 @@ export default [
       "node_modules/**",
       "coverage/**",
       "*.config.js",
-      "*.config.ts",
+      "vite.config.ts",
     ],
   },
 

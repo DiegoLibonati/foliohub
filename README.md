@@ -50,12 +50,14 @@ The application is built with vanilla TypeScript (no framework) on top of Vite, 
 "jest": "^30.3.0"
 "jest-environment-jsdom": "^30.3.0"
 "lint-staged": "^16.2.7"
+"msw": "^2.10.4"
 "postcss": "^8.4.33"
 "prettier": "^3.8.1"
 "tailwindcss": "^3.4.1"
 "ts-jest": "^29.4.6"
 "typescript": "^5.2.2"
 "typescript-eslint": "^8.54.0"
+"undici": "^7.25.0"
 "vite": "^7.1.5"
 ```
 

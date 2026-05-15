@@ -1,17 +1,16 @@
 import path from "path";
 import { defineConfig, loadEnv } from "vite";
-import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import type { UserConfig } from "vite";
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode }): UserConfig => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "./src"),
-        "@tests": path.resolve(__dirname, "./__tests__"),
+        "@": path.resolve(import.meta.dirname, "./src"),
+        "@tests": path.resolve(import.meta.dirname, "./__tests__"),
       },
     },
     server: {

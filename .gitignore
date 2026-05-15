@@ -23,8 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-package-lock.json
 .env
+coverage
 
 # Tailwind
 .tailwind.cache

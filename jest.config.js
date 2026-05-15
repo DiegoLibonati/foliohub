@@ -5,6 +5,10 @@ const config = {
   testEnvironment: "jsdom",
   rootDir: ".",
   roots: ["<rootDir>/__tests__"],
+  setupFiles: [
+    "<rootDir>/__tests__/jest.polyfills.ts",
+    "<rootDir>/__tests__/jest.polyfills-undici.ts",
+  ],
   setupFilesAfterEnv: ["<rootDir>/__tests__/jest.setup.ts"],
   testMatch: ["**/*.test.ts", "**/*.spec.ts"],
   moduleNameMapper: {
