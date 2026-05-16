@@ -86,6 +86,64 @@ For coverage report:
 npm run test:coverage
 ```
 
+## Continuous Integration
+
+The repository ships with a **GitHub Actions** pipeline defined in [`.github/workflows/ci.yml`](.github/workflows/ci.yml). It runs automatically on every `push` and `pull_request` targeting the `main` branch, guarding the codebase against regressions before any change reaches `main`.
+
+### Pipeline overview
+
+```
+                      ┌─── PR or push to main ───┐
+                      ▼                          ▼
+┌──────────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+│   lint-and-audit     │─▶│     testing      │─▶│      build       │
+│  eslint · tsc check  │  │  jest (jsdom)    │  │ tsc + vite build │
+└──────────────────────┘  └──────────────────┘  └──────────────────┘
+```
+
+The jobs are chained with `needs:`, so a failure in any earlier job short-circuits the rest of the pipeline.
+
+### Validation jobs (run on every PR and push)
+
+1. **`lint-and-audit`** — installs dependencies with `npm ci`, then runs `npm run lint` (ESLint over the whole project) and `npm run type-check` (`tsc --noEmit`). This is the first gate: style, lint rules, and TypeScript type errors must be clean.
+2. **`testing`** — runs the full Jest + Testing Library suite with `npm run test`. Tests execute under `jest-environment-jsdom`, so DOM components, pages, services, stores and helpers are all exercised headlessly.
+3. **`build`** — runs `npm run build`, which is `tsc -p tsconfig.app.json && vite build`. This guarantees the production bundle compiles cleanly with strict TypeScript settings before the change is merged.
+
+All three jobs run on `ubuntu-latest`, pin the Node.js version through [`.nvmrc`](.nvmrc) via `actions/setup-node`, and cache the npm store to speed up subsequent runs.
+
+### Skipping CI
+
+If you need to push a change to `main` without triggering the pipeline (for example, edits limited to documentation that you have already validated locally), append GitHub's standard `[skip ci]` marker to the commit message:
+
+```bash
+git commit -m "docs: fix typo in README [skip ci]"
+```
+
+> **Note:** use `[skip ci]` sparingly — every other change should go through the full pipeline.
+
+### Where the build outputs live
+
+| Output                                           | Location                                                    |
+| ------------------------------------------------ | ----------------------------------------------------------- |
+| Validation logs (lint, type-check, tests, build) | **Actions** tab on GitHub                                   |
+| Production bundle (`dist/`)                      | Ephemeral, inside the runner — not published as an artifact |
+
+This project does not produce a release artifact from CI: the bundle is rebuilt by whichever environment deploys the app (e.g. a static host or preview environment). The CI pipeline's job is purely to prove that the bundle _can_ be built from a clean checkout.
+
+### Running the same checks locally
+
+```bash
+# lint-and-audit
+npm run lint
+npm run type-check
+
+# testing
+npm run test
+
+# build
+npm run build
+```
+
 ## Security Audit
 
 Beyond the test suite, dependency vulnerabilities are tracked separately via npm's built-in audit tool.
